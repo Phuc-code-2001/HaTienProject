@@ -4,7 +4,7 @@ import os
 import time
 
 # Load the oauth_settings.yml file located in your app DIR
-stream = open('quanly/oauth_settings.yml', 'r') 
+stream = open('quanlytruonghop\quanly\quanly\oauth_settings.yml', 'r') # Thay đổi tạm 
 settings = yaml.load(stream, yaml.SafeLoader)
 
 def load_cache(request):

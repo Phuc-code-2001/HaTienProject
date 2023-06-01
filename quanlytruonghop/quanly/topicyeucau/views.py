@@ -373,7 +373,7 @@ def my_topic_detail(request, id):
             else:
                 form = AssignTopicForm(request.POST, instance=my_topic)
                 if form.is_valid():
-                    my_topic = form.save() 
+                    my_topic = form.save(commit=False) 
                     status_changed = True  # Đánh dấu trạng thái đã chuyển đổi
         else:
             form = AssignTopicForm(instance=my_topic)
