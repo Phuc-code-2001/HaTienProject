@@ -1,0 +1,108 @@
+{% load static%}
+
+
+
+{% block style %}
+<style>
+  footer {
+    background-color: #013668;
+    color: #fff;
+    font-size: 16px;
+    border-top: 1px solid #ccc;
+  }
+
+  footer ul {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  footer a {
+    color: #fff;
+  }
+
+  footer a:hover {
+    text-decoration: none;
+    background-color: transparent;
+    color: #007bff;
+  }
+
+  footer .col-md-4.order-1 p {
+    margin-bottom: 0;
+    margin-top: auto;
+  }
+
+  @media (max-width: 767px) {
+    footer .row {
+      flex-direction: column;
+    }
+
+    footer .col-md-4 {
+      margin-left: 0;
+      flex-basis: 100%;
+    }
+  }
+
+  .custom-footer {
+    height: 384px;
+  }
+</style>
+
+
+
+{% endblock%}
+
+<footer class="text-center text-lg-start custom-footer">
+  <div class="container p-4">
+    <div class="row">
+      <div class="col-md-4">
+        <b style="color:#fff">© 2023 ITHelpDesk</b>
+      </div>
+
+      <!-- <div class="col-md-2" style="color:#fff;">
+        <h5 class="text-uppercase">Liên kết</h5>
+        <hr>
+
+        <div>
+          <div>
+            <a href="https://www.vanlanguni.edu.vn/" style="color:yellow; text-decoration:none; cursor:pointer">Trang
+              chủ</a>
+          </div>
+          <div>
+            <a href="https://thuvien.vanlanguni.edu.vn/" style="color:yellow; text-decoration:none; cursor:pointer">Thư
+              viện </a>
+          </div>
+          <div>
+            <a href="http://saudaihoc.vanlanguni.edu.vn/" style="color:yellow; text-decoration:none; cursor:pointer">Sau
+              đại học</a>
+          </div>
+
+
+        </div>
+      </div> -->
+
+      <div class="col-md-6" style="color: #fff;">
+        <h5 class="text-uppercase">Trường hợp khẩn cấp, Thầy/Cô liên hệ:</h5>
+        <hr>
+
+        <ul>
+          <li><b>Phòng CNTT: <a href="tel:02871099131">028 710 99 131</a></b></li>
+          <li>
+            <b>Bộ phận CSVC (âm thanh, máy chiếu, điện,..):</b>
+            <ul>
+              <li>CS1: <a href="tel:02871099143">028 710 99 143</a></li>
+              <li>CS2: <a href="tel:02871099133">028 710 99 133</a></li>
+              <li>CS3: <a href="tel:02871099139">028 710 99 139</a></li>
+            </ul>
+          </li>
+          <p style="float: right; right: 0;">Phòng Công nghệ thông tin</p>
+        </ul>
+        
+
+
+      </div>
+
+    </div>
+
+  </div>
+
+</footer>
