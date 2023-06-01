@@ -1,5 +1,5 @@
 from topicyeucau.models import Topic, MyTopic
-from .models import GroupNotification, PersonalNotification
+from .models import GroupNotification, PersonalNotification, UserChannel
 
 from django.contrib.auth.models import Group
 
@@ -7,6 +7,9 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 
 from django.urls import reverse
+from django.http import JsonResponse
+
+from .pusher import send_notification
 
 @receiver(post_save, sender=Topic)
 def post_save_topic(sender, instance, created, **kwargs):
@@ -51,4 +54,16 @@ def post_assign_topic(sender, instance, created, **kwargs):
                 link=reverse('topic_detail', args=(assigned.topic.pk, )),
             )
         
+
+@receiver(post_save, sender=GroupNotification)
+def send_group_notification(sender, instance, created, **kwargs):
     
+    if created:
+        notification : GroupNotification = instance
+        users = notification.group_receiver.user_set.all()
+        channels = []
+        for user in users:
+            (u_channel, _) = UserChannel.objects.get_or_create(user=user)
+            channels.append(u_channel.channel)
+            
+        send_notification(channels, data=notification.toJson())

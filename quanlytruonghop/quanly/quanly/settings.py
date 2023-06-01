@@ -60,6 +60,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'topicyeucau.middleware.LoginRedirectMiddleware',
     'topicyeucau.middleware.MicrosoftUserMiddleware',
+    'notifications.middleware.CheckChannelMiddleware',
 ]
 
 

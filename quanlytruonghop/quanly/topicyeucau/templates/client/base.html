@@ -91,6 +91,28 @@
     <script src="{% static 'assets/client/js/apexchart/apexcharts.min.js' %}"></script>
     <script src="{% static 'assets/client/js/apexchart/apexcharts.js' %}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+
+    {% if request.user.is_authenticated %}
+    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+    <script>
+        
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+
+        const pusher = new Pusher("4dc578f3128e5c599631", {
+            cluster: "ap1"
+          });
+        
+        const channel = pusher.subscribe("{{ request.user.user_channel.first.channel }}");
+        
+        channel.bind('-notification', function(data) {
+            alert(data);
+            console.log(data);
+        });
+
+    </script>  
+    {% endif %}
+
 </body>
 
 </html>
