@@ -16,50 +16,125 @@
    <section class="dashboard-top-sec">
       <div class="container-fluid">
          <div class="row">
+            <!-- Thống kê chung -->
             <div class="col-lg-8">
-               <div class="bg-white top-chart-earn">
+               <div class="bg-white top-chart-earn mt-4 px-2">
                   <div class="row">
-                     <div class="col-sm-4 my-2 pe-0">
+                     <div class="col-md-4 my-2 pe-0">
                         <div class="last-month">
-                           <h5>Dashboard</h5>
-                           <p>Overview of Latest Month</p>
-                           <div class="earn">
-                              <h2>3367.98</h2>
-                              <p>Current Month Sales</p>
+                           <h1 class="text-primary fw-bold">Dashboard</h1>
+                           <p class="mb-3 text-info">Tổng quan các số liệu trong năm 2023</p>
+                           <div class="mb-3">
+                              <h2>2345</h2>
+                              <p>Tổng yêu cầu trong năm 2023</p>
                            </div>
-                           <div class="sale mb-3">
-                              <h2>95</h2>
-                              <p>Current month Sales</p>
+                           <div class="mb-3">
+                              <h2>950</h2>
+                              <p>Tổng số lương bài viết năm 2023</p>
                            </div>
-                           <a href="" class="di-tn purple-gradient">Last Month Summary</a>
                         </div>
                      </div>
-                     <div class="col-sm-8 my-2 ps-0">
+                     <div class="col-md-8 my-2 ps-0">
                         <div class="classic-tabs">
                            <!-- ------Nav Tabs ------ -->
                            <div class="tabs-wrapper">
-                              <ul class="nav nav-pills chart-header-tab mb-3" id="pills-tab" role="tablist">
+                              <ul class="nav nav-pills d-flex gap-2 justify-content-center mb-2">
                                  <li class="nav-item">
-                                    <a href="#" class="nav-link chart-nav active" id="pills-week-tab"
-                                       data-bs-toggle="pill" data-bs-target="#pills-week" type="button" role="tab"
-                                       aria-controls="pills-week" aria-selected="true">Week</a>
+                                    <a href="?year=2022" class="btn btn-primary">Năm trước</a>
                                  </li>
                                  <li class="nav-item">
-                                    <a href="#" class="nav-link chart-nav" id="pills-month-tab" data-bs-toggle="pill"
-                                       data-bs-target="#pills-month" type="button" role="tab"
-                                       aria-controls="pills-month" aria-selected="false">Month</a>
+                                    <input type="number" name="year" value="2023" class="rounded h-100 text-center text-info border-1">
                                  </li>
                                  <li class="nav-item">
-                                    <a href="#" class="nav-link chart-nav" id="pills-year-tab" data-bs-toggle="pill"
-                                       data-bs-target="#pills-year" type="button" role="tab" aria-controls="pills-year"
-                                       aria-selected="false">Year</a>
+                                    <a href="?year=2024" class="btn btn-primary">Năm sau</a>
                                  </li>
                               </ul>
                               <div class="tab-content" id="pills-tabContent">
                                  <div class="tab-pane fade show active" id="pills-week" role="tabpanel"
                                     aria-labelledby="pills-week-tab">
                                     <div class="widget-content">
-                                       <div id="chart"></div>
+                                       <div id="chart" class="p-2 rounded border">
+                                          <!-- Inject chart by js -->
+                                          <p id="chart-loading" class="text-center">Đang tải...</p>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="tab-pane fade" id="pills-month" role="tabpanel"
+                                    aria-labelledby="pills-month-tab">Month</div>
+                                 <div class="tab-pane fade" id="pills-year" role="tabpanel"
+                                    aria-labelledby="pills-year-tab">Year</div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!-- Thống kê tổng -->
+            <div class="col-lg-4">
+               <div class="bg-white top-chart-earn mt-4">
+                  <div class="d-flex flex-wrap justify-content-center gap-2 p-2">
+                     <div class="border rounded p-2 bg-light flex-grow-1" style="min-width: min(100%, 300px);">
+                        <h4 class="text-primary">Tổng số yêu cầu</h4>
+                        <div class="pt-2 text-end fw-bold text-secondary" style="font-size: 30px;">9999</div>
+                     </div>
+                     <div class="border rounded p-2 bg-light flex-grow-1" style="min-width: min(100%, 300px);">
+                        <h4 class="text-warning">Yêu cầu đã xử lý</h4>
+                        <div class="pt-2 text-end fw-bold text-secondary" style="font-size: 30px;">9999</div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!-- Thống kê cho nhân viên -->
+            <div class="col-lg-8">
+               <div class="bg-white top-chart-earn mt-4 px-2">
+                  <div class="row">
+                     <div class="col-md-4 my-2 pe-0">
+                        <div class="last-month">
+                           <h2 class="text-secondary fw-bold mb-3">Top nhân viên</h2>
+                           <p class="mb-3 text-info">Dựa trên tổng số bài viết được xử lý trong năm</p>
+                           <div class="p-2 d-flex flex-column gap-2">
+                              <a href="#" class="d-flex align-items-center p-2 bg-light fw-bold text-center rounded">
+                                 <div class="" style="width: 50px; height: 50px;">
+                                    <img src="https://images.unsplash.com/photo-1685596411704-56c5dff3b84c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDV8NnNNVmpUTFNrZVF8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60" 
+                                       alt="avt" class="w-100 h-100 rounded-circle"
+                                    >
+                                 </div>
+                                 <div class="flex-grow-1 text-success">
+                                    Nhân Viên 1 👍
+                                 </div>
+                                 <div class="p-2 text-warning">
+                                    10279
+                                 </div>
+                              </a>
+                              <a href="#" class="d-flex align-items-center p-2 bg-light fw-bold text-center rounded">
+                                 <div class="" style="width: 50px; height: 50px;">
+                                    <img src="https://images.unsplash.com/photo-1685596411704-56c5dff3b84c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDV8NnNNVmpUTFNrZVF8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60" 
+                                       alt="avt" class="w-100 h-100 rounded-circle"
+                                    >
+                                 </div>
+                                 <div class="flex-grow-1 text-success">
+                                    Nhân Viên 2 👍
+                                 </div>
+                                 <div class="p-2 text-warning">
+                                    9804
+                                 </div>
+                              </a>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-md-8 my-2 ps-0">
+                        <div class="classic-tabs">
+                           <!-- ------Nav Tabs ------ -->
+                           <div class="tabs-wrapper">
+                              <div class="tab-content" id="pills-tabContent">
+                                 <div class="tab-pane fade show active" id="pills-week" role="tabpanel"
+                                    aria-labelledby="pills-week-tab">
+                                    <div class="widget-content">
+                                       <div id="chart-employee" class="p-2 rounded border">
+                                          <!-- Inject chart by js -->
+                                          <p id="chart-employee-loading" class="text-center">Đang tải...</p>
+                                       </div>
                                     </div>
                                  </div>
                                  <div class="tab-pane fade" id="pills-month" role="tabpanel"
@@ -83,59 +158,97 @@
 <script src="{% static 'assets/js/apexchart/apexcharts.js' %}"></script>
 <script>
 
-
-   var options = {
-      series: [{
-         name: 'Net Profit',
-         data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
-      }, {
-         name: 'Revenue',
-         data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
-      }, {
-         name: 'Free Cash Flow',
-         data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
-      }],
-      chart: {
-         type: 'bar',
-         height: 350
-      },
-      plotOptions: {
-         bar: {
-            horizontal: false,
-            columnWidth: '55%',
-            endingShape: 'rounded'
+   const createBarChartOnMonth = function({
+      chartName = "Bar Chart",
+      series = [],
+      height = 350,
+      yLabel = '',
+      unit = '',
+   }) {
+      
+      return {
+         series: [...series],
+         chart: {
+            type: 'bar',
+            height: height,
          },
-      },
-      dataLabels: {
-         enabled: false
-      },
-      stroke: {
-         show: true,
-         width: 2,
-         colors: ['transparent']
-      },
-      xaxis: {
-         categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
-      },
-      yaxis: {
-         title: {
-            text: '$ (thousands)'
-         }
-      },
-      fill: {
-         opacity: 1
-      },
-      tooltip: {
-         y: {
-            formatter: function (val) {
-               return "$ " + val + " thousands"
+         xaxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+         },
+         yaxis: {
+            title: {
+               text: yLabel
             }
-         }
+         },
+         // styles
+         plotOptions: {
+            bar: {
+               horizontal: false,
+               columnWidth: '60%',
+               dataLabels: {
+                  position: 'top', // top, center, bottom
+               },
+            },
+         },
+         dataLabels: {
+            enabled: false,
+         },
+         tooltip: {
+            y: {
+               formatter: function (val) {
+                  return `${val} ${unit}`;
+               }
+            }
+         },
+         title: {
+            text: chartName,
+            floating: true,
+            align: 'center',
+            style: {
+              color: '#12f6a3'
+            }
+         },
       }
-   };
+   }
 
-   var chart = new ApexCharts(document.querySelector("#chart"), options);
-   chart.render();
+   const showChart = function(chart, { hideLoading }) {
+      if (hideLoading) hideLoading();
+      chart.render();
+   }
+
+   var demoOptions = createBarChartOnMonth({
+      chartName: 'Thống kê số lượng yêu cầu trong năm 2023',
+      series: [
+         {
+            name: 'Yêu cầu đã gửi',
+            data: [44, 55, 57, 56, 61, 58, 63, 60, 66, 20, 88, 34]
+         },
+         {
+            name: 'Yêu cầu đã hoàn thành',
+            data: [44, 55, 57, 56, 61, 58, 63, 60, 66, 20, 88, 34]
+         },
+      ],
+      height: 350,
+      unit: 'Yêu cầu',
+
+   });
+
+   var employeeChartOptions = createBarChartOnMonth({
+      chartName: 'Số lượng yêu cầu được xử lý bởi Nhân viên 1',
+      series: [
+         {
+            name: 'Yêu cầu',
+            data: [44, 55, 57, 56, 61, 58, 63, 60, 66, 20, 88, 34]
+         }
+      ],
+      height: 350,
+      unit: 'Yêu cầu',
+   });
+
+   const chart = new ApexCharts(document.querySelector("#chart"), demoOptions);
+   const e_chart = new ApexCharts(document.querySelector("#chart-employee"), employeeChartOptions);
+   showChart(chart, { hideLoading: () => $("#chart-loading").hide() });
+   showChart(e_chart, { hideLoading: () => $("#chart-employee-loading").hide() });
 </script>
 {% endblock %}
 {% block footer%}{% endblock %}

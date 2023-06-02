@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'microsoft_authentication',
     'django_auth_adfs',
     'channels',
-    'notifications'
+    'notifications',
+    'reporting',
 
 ]
 
