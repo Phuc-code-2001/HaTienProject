@@ -1,4 +1,6 @@
-// LEFT SIDEBAR JS 
+// import 'jquery';
+
+// LEFT SIDEBAR JS
 $(document).on('click','#sidebar li', function(){
     $(this).addClass('active').siblings().removeClass('active')
 });
@@ -155,3 +157,56 @@ if (one) {
 
 
 
+// Notifications
+const notification = [];
+const listNotificationDOM = $("#notification-box");
+const unreadNotificationDOM = $("#unread_notification");
+
+function createNotificationItemDOM(e) {
+    let time = new Date(e.create_at);
+    return `
+            <span class="dropdown-item message-item">
+                <div class="note-info-desmis">
+                    <a href="${e.link}" class="user-notify-info mx-2 text-success">
+                        <p class="note-name">${e.title}</p>
+                        <p class="note-comment">${e.content}
+                        </p>
+                        <small class="text-muted text-info">${time.toLocaleTimeString()} ${time.toDateString()}</small>
+                    </a>
+                    <button class="btn btn-danger btn-sm" value="${e.id}">
+                        <span class="fas fa-times"></span>
+                    </button>
+                </div>
+            </span>
+            `
+}
+
+function addNotification(data) {
+    alert("Pusher comming!");
+    if(notification.length === 0) {
+        listNotificationDOM.empty();
+    }
+    notification.push(data);
+    $(createNotificationItemDOM(data)).prependTo(listNotificationDOM);
+}
+
+const fetchNotifications = function() {
+    $.get( "http://127.0.0.1:8000/n/get-list-notification/", function( data ) {
+        notification.push(...data);
+        if(notification.length > 0) {
+            notification.forEach((e, i) => {
+                $(createNotificationItemDOM(e)).prependTo(listNotificationDOM);
+            });
+        }
+        else {
+            $('<p class="text-danger text-center">Chưa có thông báo</p>').appendTo(listNotificationDOM);
+        }
+    });
+}
+
+$(document).ready(function() {
+    fetchNotifications();
+});
+
+
+// End Notifications

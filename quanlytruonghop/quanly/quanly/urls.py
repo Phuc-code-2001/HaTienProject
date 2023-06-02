@@ -24,8 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('', include('topicyeucau.urls')),
-
-
+    path('n/', include('notifications.urls')),
 
 ]
 

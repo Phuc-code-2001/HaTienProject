@@ -46,13 +46,9 @@ INSTALLED_APPS = [
     'microsoft_authentication',
     'django_auth_adfs',
     'channels',
-    
+    'notifications'
 
 ]
-
-
-
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -64,6 +60,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'topicyeucau.middleware.LoginRedirectMiddleware',
     'topicyeucau.middleware.MicrosoftUserMiddleware',
+    'notifications.middleware.CheckChannelMiddleware',
+    # 'notifications.middleware.NotificationMiddleware',
 ]
 
 
@@ -138,15 +136,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = 'static/'
-MEDIA_URL = '/media/'
-STATICFILES_DIRS = [
-    "C:/Users/zanepc/Documents/caseManageCNTT/CNTTManage/quanly/static",
-]
-
-MEDIA_URL_AVATARS = '/media/avatars/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 MEDIA_ROOT_AVATARS = os.path.join(MEDIA_ROOT, 'avatars')
+MEDIA_URL_AVATARS = '/media/avatars/'
+
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_RESTRICT_BY_USER = True
 CKEDITOR_IMAGE_BACKEND = 'pillow'
@@ -154,8 +149,6 @@ CKEDITOR_IMAGE_BACKEND = 'pillow'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
 
 CKEDITOR_CONFIGS = {
     'default': {
