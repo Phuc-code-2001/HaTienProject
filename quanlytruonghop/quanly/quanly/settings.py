@@ -61,6 +61,7 @@ MIDDLEWARE = [
     'topicyeucau.middleware.LoginRedirectMiddleware',
     'topicyeucau.middleware.MicrosoftUserMiddleware',
     'notifications.middleware.CheckChannelMiddleware',
+    # 'notifications.middleware.NotificationMiddleware',
 ]
 
 

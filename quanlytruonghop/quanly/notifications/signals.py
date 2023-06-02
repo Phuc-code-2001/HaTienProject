@@ -67,3 +67,12 @@ def send_group_notification(sender, instance, created, **kwargs):
             channels.append(u_channel.channel)
             
         send_notification(channels, data=notification.toJson())
+
+@receiver(post_save, sender=PersonalNotification)
+def send_personal_notification(sender, instance, created, **kwargs):
+    
+    if created:
+        notification : PersonalNotification = instance
+        if notification.receiver:
+            (u_channel, _) = UserChannel.objects.get_or_create(user=notification.receiver)            
+            send_notification([u_channel.channel], data=notification.toJson())

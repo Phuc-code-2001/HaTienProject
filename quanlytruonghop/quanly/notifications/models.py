@@ -27,7 +27,7 @@ class PersonalNotification(Notification):
     receiver = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
     
 class GroupNotification(Notification):
-    group_receiver = models.ForeignKey(Group, null=True, blank=True, on_delete=models.SET_NULL)
+    group_receiver = models.ForeignKey(Group, null=True, blank=True, on_delete=models.SET_NULL, related_name='notifications')
     
 
 def generate_secret():
