@@ -228,7 +228,7 @@
     <div class="row search-box search-box--hero-unit">
       <div class="col-md-12">
         <form class="search-box__form" method="get">
-          <input type="text" class="search-box__input" name='q' placeholder="Tìm kiếm">
+          <input type="text" class="search-box__input" name='q' placeholder="Tìm kiếm" value="{{ q }}">
           <button type="submit" class="search-box__button"><i class="fa fa-search"></i></button>
         </form>
       </div>
@@ -237,7 +237,15 @@
 </div>
 <div class="content-wrapper">
   <div class="container">
+    {% if q is not None %}
+    <h2>Bài viết</h2>
+    {% else %}
     <h2>Bài viết nổi bật</h2>
+    {% endif %}
+    <hr/>
+    {% if article_list|length == 0 %}
+    <h4 class="p-2 text-center text-danger">Danh sách trống.</p>
+    {% endif %}
     <div class="promoted-articles__title">
       <ul class="promoted-articles__list">
         {% for article in article_list %}
@@ -252,8 +260,12 @@
       </ul>
     </div>
 
-
+    <br/>
     <h2>Knowledge</h2>
+    <hr/>
+    {% if knowledges|length == 0 %}
+    <h4 class="p-2 text-center text-danger">Danh sách trống.</p>
+    {% endif %}
     <div class="box">
       <ul class="row block-list clearfix">
         {% for knowledge in knowledges %}

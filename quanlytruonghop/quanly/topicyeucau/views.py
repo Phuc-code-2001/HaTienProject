@@ -52,9 +52,16 @@ def user_in_group(user, group_name):
 
 #----------------------------Quan ly tai khoan -------------------------------------
 def home_view(request):
+    
+    
     article_list = Article.objects.filter(hidden=False)  # Lọc ra các bài viết chưa bị ẩn
     knowledges = Knowledge.objects.all()
+    q = request.GET.get('q')
+    if q:
+        article_list = article_list.filter(title__contains=q)
+        
     context = {
+        'q': q,
         'article_list': article_list,
         'knowledges': knowledges,
     }
