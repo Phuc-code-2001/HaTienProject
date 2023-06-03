@@ -43,7 +43,8 @@
                                     <a href="?year={{ year|add:-1 }}" class="btn btn-primary">Năm trước</a>
                                  </li>
                                  <li class="nav-item">
-                                    <input id="i_curent_year" autocomplete="off" type="number" name="year" placeholder="{{ year }}" class="rounded h-100 text-center text-info border-1">
+                                    <input id="i_curent_year" autocomplete="off" type="number" name="year"
+                                       placeholder="{{ year }}" class="rounded h-100 text-center text-info border-1">
                                  </li>
                                  <li class="nav-item">
                                     <a href="?year={{ year|add:1 }}" class="btn btn-primary">Năm sau</a>
@@ -79,9 +80,9 @@
                            <div class="p-2 d-flex flex-column gap-2" id="employee-ranking-wrapper">
                               <a href="#" class="d-flex align-items-center p-2 bg-light fw-bold text-center rounded">
                                  <div class="" style="width: 50px; height: 50px;">
-                                    <img src="https://images.unsplash.com/photo-1685596411704-56c5dff3b84c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDV8NnNNVmpUTFNrZVF8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60" 
-                                       alt="avt" class="w-100 h-100 rounded-circle"
-                                    >
+                                    <img
+                                       src="https://images.unsplash.com/photo-1685596411704-56c5dff3b84c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDV8NnNNVmpUTFNrZVF8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+                                       alt="avt" class="w-100 h-100 rounded-circle">
                                  </div>
                                  <div class="flex-grow-1 text-success">
                                     Nhân Viên 1 👍
@@ -92,9 +93,9 @@
                               </a>
                               <a href="#" class="d-flex align-items-center p-2 bg-light fw-bold text-center rounded">
                                  <div class="" style="width: 50px; height: 50px;">
-                                    <img src="https://images.unsplash.com/photo-1685596411704-56c5dff3b84c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDV8NnNNVmpUTFNrZVF8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60" 
-                                       alt="avt" class="w-100 h-100 rounded-circle"
-                                    >
+                                    <img
+                                       src="https://images.unsplash.com/photo-1685596411704-56c5dff3b84c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDV8NnNNVmpUTFNrZVF8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+                                       alt="avt" class="w-100 h-100 rounded-circle">
                                  </div>
                                  <div class="flex-grow-1 text-success">
                                     Nhân Viên 2 👍
@@ -130,6 +131,45 @@
                      </div>
                   </div>
                </div>
+
+               <!-- Thống kê Rating -->
+               <div class="bg-white top-chart-earn mt-4 px-2">
+                  <div class="row">
+                     <div class="col-md-4 my-2 pe-0">
+                        <div class="last-month">
+                           <h4 class="text-primary fw-bold mb-3">Tổng quan đánh giá</h4>
+                           <p class="mb-3 text-info">Tổng quan các số liệu đánh trong năm {{ year }}</p>
+                           <div class="mb-3">
+                              <h2 id="total-rating-year">Chưa thống kê</h2>
+                              <p>Tổng số lượng đánh giá trong năm {{ year }}</p>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-md-8 my-2 ps-0">
+                        <div class="classic-tabs">
+                           <!-- ------Nav Tabs ------ -->
+                           <div class="tabs-wrapper">
+                              <div class="tab-content" id="pills-tabContent">
+                                 <div class="tab-pane fade show active" id="pills-week" role="tabpanel"
+                                    aria-labelledby="pills-week-tab">
+                                    <div class="widget-content">
+                                       <div id="rating-year-chart" class="p-2 rounded border">
+                                          <!-- Inject chart by js -->
+                                          <p id="rating-year-chart-loading" class="text-center">Đang tải...</p>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="tab-pane fade" id="pills-month" role="tabpanel"
+                                    aria-labelledby="pills-month-tab">Month</div>
+                                 <div class="tab-pane fade" id="pills-year" role="tabpanel"
+                                    aria-labelledby="pills-year-tab">Year</div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
             </div>
             <!-- Thống kê tổng -->
             <div class="col-lg-4">
@@ -137,21 +177,26 @@
                   <div class="d-flex flex-wrap justify-content-center gap-2 p-2">
                      <div class="border rounded p-2 bg-light flex-grow-1" style="min-width: min(100%, 300px);">
                         <h4 class="text-primary">Tổng số yêu cầu</h4>
-                        <div class="pt-2 text-end fw-bold text-secondary" style="font-size: 30px;">{{ total_topic }}</div>
+                        <div class="pt-2 text-end fw-bold text-secondary" style="font-size: 30px;">{{ total_topic }}
+                        </div>
                      </div>
                      <div class="border rounded p-2 bg-light flex-grow-1" style="min-width: min(100%, 300px);">
                         <h4 class="text-warning">Yêu cầu đã xử lý</h4>
-                        <div class="pt-2 text-end fw-bold text-secondary" style="font-size: 30px;">{{ total_topic_done }}</div>
+                        <div class="pt-2 text-end fw-bold text-secondary" style="font-size: 30px;">
+                           {{ total_topic_done }}
+                        </div>
                      </div>
-                     <div class="border rounded p-2 bg-light flex-grow-1" style="min-width: min(100%, 300px);">
-                        <h5 class="text-danger text-center">Xếp hạng thành viên đóng góp theo tháng</h5>
-                        <hr/>
-                        <div class="mx-auto d-flex flex-column gap-2" id="member-ranking-wrapper" style="max-width: 450px;">
-                           <span class="d-flex align-items-center p-2 bg-light fw-bold text-center rounded" style="font-size: 1.4em;">
+                     <div class="border rounded p-2 bg-light flex-grow-1">
+                        <h5 class="text-danger">Xếp hạng thành viên đóng góp theo tháng</h5>
+                        <hr />
+                        <div class="mx-auto d-flex flex-column gap-2" id="member-ranking-wrapper"
+                           style="max-width: 450px;">
+                           <span class="d-flex align-items-center p-2 bg-light fw-bold text-center rounded"
+                              style="font-size: 1.4em;">
                               <div class="" style="width: 50px; height: 50px;">
-                                 <img src="https://images.unsplash.com/photo-1685596411704-56c5dff3b84c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDV8NnNNVmpUTFNrZVF8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60" 
-                                    alt="avt" class="w-100 h-100 rounded-circle"
-                                 >
+                                 <img
+                                    src="https://images.unsplash.com/photo-1685596411704-56c5dff3b84c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDV8NnNNVmpUTFNrZVF8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+                                    alt="avt" class="w-100 h-100 rounded-circle">
                               </div>
                               <div class="flex-grow-1 text-success">
                                  Thành Viên 1 👍
@@ -160,11 +205,12 @@
                                  10279
                               </div>
                            </span>
-                           <span class="d-flex align-items-center p-2 bg-light fw-bold text-center rounded" style="font-size: 1.4em;">
+                           <span class="d-flex align-items-center p-2 bg-light fw-bold text-center rounded"
+                              style="font-size: 1.4em;">
                               <div class="" style="width: 50px; height: 50px;">
-                                 <img src="https://images.unsplash.com/photo-1685596411704-56c5dff3b84c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDV8NnNNVmpUTFNrZVF8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60" 
-                                    alt="avt" class="w-100 h-100 rounded-circle"
-                                 >
+                                 <img
+                                    src="https://images.unsplash.com/photo-1685596411704-56c5dff3b84c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDV8NnNNVmpUTFNrZVF8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+                                    alt="avt" class="w-100 h-100 rounded-circle">
                               </div>
                               <div class="flex-grow-1 text-success">
                                  Thành Viên 2 👍
@@ -174,10 +220,16 @@
                               </div>
                            </span>
                         </div>
-                        <hr/>
+                        <br>
+                        <h4 class="text-warning">Biểu đồ tỉ lệ đánh giá theo tháng</h4>
+                        <hr />
+                        <div id="rating-chart">
+                           <p class="text-center text-danger" id="rating-chart-loading">Chưa có thống kê</p>
+                        </div>
+                        <hr />
                         <form class="d-flex justify-content-end align-items-center gap-2 px-2" id="form-member-ranking">
                            <label for="i_member-ranking">Chọn thời gian:</label>
-                           <select name='month' class="p-1 bg-info" id="i_month_member_ranking">
+                           <select name='month' class="p-1 bg-info" id="i_month">
                               <option value=''>--Select Month--</option>
                               <option value='1'>Janaury</option>
                               <option value='2'>February</option>
@@ -195,6 +247,7 @@
                            <button type="submit" class="btn btn-success btn-sm">Xem</button>
                         </form>
                      </div>
+
                   </div>
                </div>
             </div>
@@ -205,7 +258,7 @@
 <div class="d-none">
    {% if hidden_fields %}
    {% for field in hidden_fields %}
-   <input type="hidden" id="hidden_field_{{ field.name }}" value="{{ field.value }}" />  
+   <input type="hidden" id="hidden_field_{{ field.name }}" value="{{ field.value }}" />
    {% endfor %}
    {% endif %}
 </div>
@@ -215,14 +268,14 @@
 <script src="{% static 'assets/js/apexchart/apexcharts.js' %}"></script>
 <script>
 
-   const createBarChartOnMonth = function({
+   const createBarChartOnMonth = function ({
       chartName = "Bar Chart",
       series = [],
       height = 350,
       yLabel = '',
       unit = '',
    }) {
-      
+
       return {
          series: [...series],
          chart: {
@@ -262,28 +315,28 @@
             floating: true,
             align: 'center',
             style: {
-              color: '#12f6a3'
+               color: '#12f6a3'
             }
          },
       }
    }
 
-   const showChart = function(chart, { hideLoading }) {
+   const showChart = function (chart, { hideLoading }) {
       if (hideLoading) hideLoading();
       chart.render();
    }
 
-   const fetchData = function(year, callback = (data) => console.log(data)) {
+   const fetchData = function (year, callback = (data) => console.log(data)) {
       let url = "http://127.0.0.1:8000/r/overview/?year=" + year;
       $.get(url, callback)
    }
 
-   const fetchEmployeeRanking = function(year, callback) {
+   const fetchEmployeeRanking = function (year, callback) {
       let url = "http://127.0.0.1:8000/r/employee-ranking/?year=" + year;
       $.get(url, callback)
    }
 
-   const fetchEmployeeReport = function(emp_id, callback) {
+   const fetchEmployeeReport = function (emp_id, callback) {
       let year = $("#hidden_field_year").val();
 
       let url = `http://127.0.0.1:8000/r/employee-report/?year=${year}&emp_id=${emp_id}`;
@@ -291,20 +344,30 @@
 
    }
 
-   const fetchMemberRanking = function({callback, month=null, year=null}) {
+   const fetchMemberRanking = function ({ callback, month = null, year = null }) {
 
-      let url = `http://127.0.0.1:8000/r/member-ranking/?year=${year | ""}&month=${month | ""}`;
+      let url = `http://127.0.0.1:8000/r/member-ranking/?year=${year}&month=${month}`;
       $.get(url, callback);
    }
 
-   $(document).ready(function(e){
+   const fetchRatingDataOnMonth = function ({ year, month, callback }) {
+      let url = `http://127.0.0.1:8000/r/rating-on-month/?year=${year}&month=${month}`;
+      $.get(url, callback);
+   }
+
+   const fetchRatingDataOnYear = function (year, callback) {
+      let url = `http://127.0.0.1:8000/r/rating-on-year/?year=${year}`;
+      $.get(url, callback);
+   }
+
+   $(document).ready(function (e) {
 
       let year = $("#hidden_field_year").val();
       let month = $("#hidden_field_month").val();
       let emp_id = $("#hidden_field_emp_id").val();
 
       console.log("year, emp_id", year, emp_id);
-      
+
       fetchData(year, (data) => {
 
          let mainChartOptions = createBarChartOnMonth({
@@ -321,7 +384,7 @@
             ],
             height: 350,
             unit: 'Yêu cầu',
-      
+
          });
 
          let mainChart = new ApexCharts(document.querySelector("#chart"), mainChartOptions);
@@ -333,10 +396,10 @@
          let empWrapper = $("#employee-ranking-wrapper");
          if (emp_id == 'None' && data.length > 0) {
             emp_id = data[0].id;
-            
+
          }
          empWrapper.empty();
-         if(data.length == 0) {
+         if (data.length == 0) {
             $("#chart-employee-loading").text("Chưa có thống kê")
          }
 
@@ -386,19 +449,89 @@
 
       });
 
+      fetchRatingDataOnYear(year, dataset => {
+
+         let total_count = dataset.total;
+         let data = dataset.data;
+
+         let stack_options = {
+            series: [
+               {
+                  name: "Chưa đánh giá",
+                  data: data[0],
+               },
+               {
+                  name: "1 sao",
+                  data: data[1]
+               },
+               {
+                  name: "2 sao",
+                  data: data[2]
+               },
+               {
+                  name: "3 sao",
+                  data: data[3]
+               },
+               {
+                  name: "4 sao",
+                  data: data[4]
+               },
+               {
+                  name: "5 sao",
+                  data: data[5]
+               },
+            ],
+            chart: {
+               type: 'bar',
+               height: 350,
+               stacked: true,
+            },
+            plotOptions: {
+               bar: {
+                  horizontal: false,
+               },
+            },
+            stroke: {
+               width: 1,
+               colors: ['#fff']
+            },
+            title: {
+               text: 'Tổng quan đánh giá trong năm ' + year,
+            },
+            xaxis: {
+               categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            },
+            yaxis: {
+               title: {
+                  text: 'Thống kê số lượt đánh giá'
+               },
+            },
+            legend: {
+               position: 'top',
+               horizontalAlign: 'center',
+            }
+         };
+
+         let chart = new ApexCharts(document.querySelector("#rating-year-chart"), stack_options);
+         showChart(chart, { hideLoading: () => $("#rating-year-chart-loading").hide() });
+
+         $("#total-rating-year").text(total_count);
+
+      });
+
       $("#i_curent_year").keypress((e) => {
          console.log(e.key);
-         if(e.key == 'Enter') {
+         if (e.key == 'Enter') {
             window.location.href = '?year=' + e.target.value;
          }
       })
 
-      const renderMemberRanking = function(data) {
+      const renderMemberRanking = function (data) {
 
          let wrapper = $("#member-ranking-wrapper");
          wrapper.empty();
 
-         if(data.length == 0) {
+         if (data.length == 0) {
             wrapper.append($("<p class='text-center text-danger'>Chưa có thống kê.</p>"));
          }
 
@@ -425,17 +558,67 @@
          })
       }
 
+      const renderRatingChartOnMonth = function (data) {
+         console.log(data);
+         let wrapper = $("#rating-chart");
+         let cloner = $(`<div id="rating-chart"></div>`);
+         let total = data.reduce((a, b) => a + b, 0);
+         console.log(total, total === 0);
+         if (total == 0) {
+            cloner.append($("<p class='text-center text-danger'>Chưa có thống kê.</p>"));
+            wrapper.replaceWith(cloner);
+            wrapper.remove();
+         }
+         else {
+            wrapper.replaceWith(cloner);
+            wrapper.remove();
+            let options = {
+               series: data,
+               chart: {
+                  width: 380,
+                  type: 'pie',
+               },
+               labels: ['Chưa đánh giá', '1 sao', '2 sao', '3 sao', '4 sao', '5 sao'],
+               responsive: [
+                  {
+                     breakpoint: 480,
+                     options: {
+                        chart: {
+                           width: 200
+                        },
+                        legend: {
+                           position: 'bottom'
+                        }
+                     }
+                  }
+               ]
+            }
+            let chart = new ApexCharts(document.querySelector("#rating-chart"), options);
+            showChart(chart, { hideLoading: () => $("#rating-chart-loading").hide() });
+         }
+
+      }
+
       $("#form-member-ranking").submit(e => {
          e.preventDefault();
-         let month = e.target.month.value;
-         console.log(month);
-         fetchMemberRanking({ year: year, month: month, callback: renderMemberRanking });
+         let n_month = e.target.month.value;
+         fetchMemberRanking({ year: year, month: n_month, callback: renderMemberRanking });
+         fetchRatingDataOnMonth({ year: year, month: n_month, callback: renderRatingChartOnMonth });
       });
 
-      fetchMemberRanking({ month: month, year: year, callback: data => {
-         renderMemberRanking(data);
-         $("#i_month_member_ranking").find(`option[value='${month}']`).attr('selected', true);
-      }});
+      $("#i_month").find(`option[value='${month}']`).attr('selected', true);
+
+      fetchMemberRanking({
+         month: month, year: year, callback: data => {
+            renderMemberRanking(data);
+         }
+      });
+
+      fetchRatingDataOnMonth({
+         month: month, year: year, callback: data => {
+            renderRatingChartOnMonth(data);
+         }
+      });
 
    });
 
