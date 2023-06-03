@@ -16,21 +16,21 @@
    <section class="dashboard-top-sec">
       <div class="container-fluid">
          <div class="row">
-            <!-- Thống kê chung -->
             <div class="col-lg-8">
+               <!-- Thống kê chung -->
                <div class="bg-white top-chart-earn mt-4 px-2">
                   <div class="row">
                      <div class="col-md-4 my-2 pe-0">
                         <div class="last-month">
                            <h1 class="text-primary fw-bold">Dashboard</h1>
-                           <p class="mb-3 text-info">Tổng quan các số liệu trong năm 2023</p>
+                           <p class="mb-3 text-info">Tổng quan các số liệu trong năm {{ year }}</p>
                            <div class="mb-3">
-                              <h2>2345</h2>
-                              <p>Tổng yêu cầu trong năm 2023</p>
+                              <h2>{{ total_topic_on_year }}</h2>
+                              <p>Tổng yêu cầu trong năm {{ year }}</p>
                            </div>
                            <div class="mb-3">
-                              <h2>950</h2>
-                              <p>Tổng số lương bài viết năm 2023</p>
+                              <h2>{{ total_post_on_year }}</h2>
+                              <p>Tổng số lương bài viết năm {{ year }}</p>
                            </div>
                         </div>
                      </div>
@@ -40,13 +40,13 @@
                            <div class="tabs-wrapper">
                               <ul class="nav nav-pills d-flex gap-2 justify-content-center mb-2">
                                  <li class="nav-item">
-                                    <a href="?year=2022" class="btn btn-primary">Năm trước</a>
+                                    <a href="?year={{ year|add:-1 }}" class="btn btn-primary">Năm trước</a>
                                  </li>
                                  <li class="nav-item">
-                                    <input type="number" name="year" value="2023" class="rounded h-100 text-center text-info border-1">
+                                    <input id="i_curent_year" autocomplete="off" type="number" name="year" placeholder="{{ year }}" class="rounded h-100 text-center text-info border-1">
                                  </li>
                                  <li class="nav-item">
-                                    <a href="?year=2024" class="btn btn-primary">Năm sau</a>
+                                    <a href="?year={{ year|add:1 }}" class="btn btn-primary">Năm sau</a>
                                  </li>
                               </ul>
                               <div class="tab-content" id="pills-tabContent">
@@ -69,31 +69,14 @@
                      </div>
                   </div>
                </div>
-            </div>
-            <!-- Thống kê tổng -->
-            <div class="col-lg-4">
-               <div class="bg-white top-chart-earn mt-4">
-                  <div class="d-flex flex-wrap justify-content-center gap-2 p-2">
-                     <div class="border rounded p-2 bg-light flex-grow-1" style="min-width: min(100%, 300px);">
-                        <h4 class="text-primary">Tổng số yêu cầu</h4>
-                        <div class="pt-2 text-end fw-bold text-secondary" style="font-size: 30px;">9999</div>
-                     </div>
-                     <div class="border rounded p-2 bg-light flex-grow-1" style="min-width: min(100%, 300px);">
-                        <h4 class="text-warning">Yêu cầu đã xử lý</h4>
-                        <div class="pt-2 text-end fw-bold text-secondary" style="font-size: 30px;">9999</div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <!-- Thống kê cho nhân viên -->
-            <div class="col-lg-8">
+               <!-- Thống kê cho nhân viên -->
                <div class="bg-white top-chart-earn mt-4 px-2">
                   <div class="row">
                      <div class="col-md-4 my-2 pe-0">
                         <div class="last-month">
                            <h2 class="text-secondary fw-bold mb-3">Top nhân viên</h2>
                            <p class="mb-3 text-info">Dựa trên tổng số bài viết được xử lý trong năm</p>
-                           <div class="p-2 d-flex flex-column gap-2">
+                           <div class="p-2 d-flex flex-column gap-2" id="employee-ranking-wrapper">
                               <a href="#" class="d-flex align-items-center p-2 bg-light fw-bold text-center rounded">
                                  <div class="" style="width: 50px; height: 50px;">
                                     <img src="https://images.unsplash.com/photo-1685596411704-56c5dff3b84c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDV8NnNNVmpUTFNrZVF8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60" 
@@ -148,9 +131,83 @@
                   </div>
                </div>
             </div>
+            <!-- Thống kê tổng -->
+            <div class="col-lg-4">
+               <div class="bg-white top-chart-earn mt-4">
+                  <div class="d-flex flex-wrap justify-content-center gap-2 p-2">
+                     <div class="border rounded p-2 bg-light flex-grow-1" style="min-width: min(100%, 300px);">
+                        <h4 class="text-primary">Tổng số yêu cầu</h4>
+                        <div class="pt-2 text-end fw-bold text-secondary" style="font-size: 30px;">{{ total_topic }}</div>
+                     </div>
+                     <div class="border rounded p-2 bg-light flex-grow-1" style="min-width: min(100%, 300px);">
+                        <h4 class="text-warning">Yêu cầu đã xử lý</h4>
+                        <div class="pt-2 text-end fw-bold text-secondary" style="font-size: 30px;">{{ total_topic_done }}</div>
+                     </div>
+                     <div class="border rounded p-2 bg-light flex-grow-1" style="min-width: min(100%, 300px);">
+                        <h5 class="text-danger text-center">Xếp hạng thành viên đóng góp theo tháng</h5>
+                        <hr/>
+                        <div class="mx-auto d-flex flex-column gap-2" id="member-ranking-wrapper" style="max-width: 450px;">
+                           <span class="d-flex align-items-center p-2 bg-light fw-bold text-center rounded" style="font-size: 1.4em;">
+                              <div class="" style="width: 50px; height: 50px;">
+                                 <img src="https://images.unsplash.com/photo-1685596411704-56c5dff3b84c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDV8NnNNVmpUTFNrZVF8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60" 
+                                    alt="avt" class="w-100 h-100 rounded-circle"
+                                 >
+                              </div>
+                              <div class="flex-grow-1 text-success">
+                                 Thành Viên 1 👍
+                              </div>
+                              <div class="p-2 text-warning">
+                                 10279
+                              </div>
+                           </span>
+                           <span class="d-flex align-items-center p-2 bg-light fw-bold text-center rounded" style="font-size: 1.4em;">
+                              <div class="" style="width: 50px; height: 50px;">
+                                 <img src="https://images.unsplash.com/photo-1685596411704-56c5dff3b84c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDV8NnNNVmpUTFNrZVF8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60" 
+                                    alt="avt" class="w-100 h-100 rounded-circle"
+                                 >
+                              </div>
+                              <div class="flex-grow-1 text-success">
+                                 Thành Viên 2 👍
+                              </div>
+                              <div class="p-2 text-warning">
+                                 9804
+                              </div>
+                           </span>
+                        </div>
+                        <hr/>
+                        <form class="d-flex justify-content-end align-items-center gap-2 px-2" id="form-member-ranking">
+                           <label for="i_member-ranking">Chọn thời gian:</label>
+                           <select name='month' class="p-1 bg-info" id="i_month_member_ranking">
+                              <option value=''>--Select Month--</option>
+                              <option value='1'>Janaury</option>
+                              <option value='2'>February</option>
+                              <option value='3'>March</option>
+                              <option value='4'>April</option>
+                              <option value='5'>May</option>
+                              <option value='6'>June</option>
+                              <option value='7'>July</option>
+                              <option value='8'>August</option>
+                              <option value='9'>September</option>
+                              <option value='10'>October</option>
+                              <option value='11'>November</option>
+                              <option value='12'>December</option>
+                           </select>
+                           <button type="submit" class="btn btn-success btn-sm">Xem</button>
+                        </form>
+                     </div>
+                  </div>
+               </div>
+            </div>
          </div>
       </div>
    </section>
+</div>
+<div class="d-none">
+   {% if hidden_fields %}
+   {% for field in hidden_fields %}
+   <input type="hidden" id="hidden_field_{{ field.name }}" value="{{ field.value }}" />  
+   {% endfor %}
+   {% endif %}
 </div>
 {% endblock %}
 {% block scripts %}
@@ -216,39 +273,172 @@
       chart.render();
    }
 
-   var demoOptions = createBarChartOnMonth({
-      chartName: 'Thống kê số lượng yêu cầu trong năm 2023',
-      series: [
-         {
-            name: 'Yêu cầu đã gửi',
-            data: [44, 55, 57, 56, 61, 58, 63, 60, 66, 20, 88, 34]
-         },
-         {
-            name: 'Yêu cầu đã hoàn thành',
-            data: [44, 55, 57, 56, 61, 58, 63, 60, 66, 20, 88, 34]
-         },
-      ],
-      height: 350,
-      unit: 'Yêu cầu',
+   const fetchData = function(year, callback = (data) => console.log(data)) {
+      let url = "http://127.0.0.1:8000/r/overview/?year=" + year;
+      $.get(url, callback)
+   }
 
-   });
+   const fetchEmployeeRanking = function(year, callback) {
+      let url = "http://127.0.0.1:8000/r/employee-ranking/?year=" + year;
+      $.get(url, callback)
+   }
 
-   var employeeChartOptions = createBarChartOnMonth({
-      chartName: 'Số lượng yêu cầu được xử lý bởi Nhân viên 1',
-      series: [
-         {
-            name: 'Yêu cầu',
-            data: [44, 55, 57, 56, 61, 58, 63, 60, 66, 20, 88, 34]
+   const fetchEmployeeReport = function(emp_id, callback) {
+      let year = $("#hidden_field_year").val();
+
+      let url = `http://127.0.0.1:8000/r/employee-report/?year=${year}&emp_id=${emp_id}`;
+      $.get(url, callback)
+
+   }
+
+   const fetchMemberRanking = function({callback, month=null, year=null}) {
+
+      let url = `http://127.0.0.1:8000/r/member-ranking/?year=${year | ""}&month=${month | ""}`;
+      $.get(url, callback);
+   }
+
+   $(document).ready(function(e){
+
+      let year = $("#hidden_field_year").val();
+      let month = $("#hidden_field_month").val();
+      let emp_id = $("#hidden_field_emp_id").val();
+
+      console.log("year, emp_id", year, emp_id);
+      
+      fetchData(year, (data) => {
+
+         let mainChartOptions = createBarChartOnMonth({
+            chartName: 'Thống kê số lượng yêu cầu trong năm ' + year,
+            series: [
+               {
+                  name: 'Yêu cầu đã gửi',
+                  data: data.topic_total_set
+               },
+               {
+                  name: 'Yêu cầu đã hoàn thành',
+                  data: data.topic_done_set
+               },
+            ],
+            height: 350,
+            unit: 'Yêu cầu',
+      
+         });
+
+         let mainChart = new ApexCharts(document.querySelector("#chart"), mainChartOptions);
+         showChart(mainChart, { hideLoading: () => $("#chart-loading").hide() });
+      });
+
+      fetchEmployeeRanking(year, data => {
+
+         let empWrapper = $("#employee-ranking-wrapper");
+         if (emp_id == 'None' && data.length > 0) {
+            emp_id = data[0].id;
+            
          }
-      ],
-      height: 350,
-      unit: 'Yêu cầu',
+         empWrapper.empty();
+         if(data.length == 0) {
+            $("#chart-employee-loading").text("Chưa có thống kê")
+         }
+
+         data.forEach(item => {
+
+            let itemDOM = `
+               <a href="?year=${year}&emp_id=${item.id}" class="d-flex align-items-center p-2 bg-${item.id == emp_id ? 'info' : 'light'} fw-bold text-center rounded">
+                  <div class="" style="width: 50px; height: 50px;">
+                     <img src="${item.avatar}" 
+                        alt="avt" class="w-100 h-100 rounded-circle"
+                     >
+                  </div>
+                  <div class="flex-grow-1 text-success">
+                     ${item.name}
+                  </div>
+                  <div class="p-2 text-warning">
+                     ${item.count}
+                  </div>
+               </a>
+            `;
+
+            $(itemDOM).appendTo(empWrapper);
+
+         });
+
+         console.log(data);
+
+         fetchEmployeeReport(emp_id, data => {
+
+            let employeeChartOptions = createBarChartOnMonth({
+               chartName: `Số lượng yêu cầu được xử lý bởi ${data.employee.name}`,
+               series: [
+                  {
+                     name: 'Yêu cầu',
+                     data: data.dataset
+                  }
+               ],
+               height: 350,
+               unit: 'Yêu cầu',
+            });
+
+            let e_chart = new ApexCharts(document.querySelector("#chart-employee"), employeeChartOptions);
+            showChart(e_chart, { hideLoading: () => $("#chart-employee-loading").hide() });
+            console.log(data);
+
+         });
+
+      });
+
+      $("#i_curent_year").keypress((e) => {
+         console.log(e.key);
+         if(e.key == 'Enter') {
+            window.location.href = '?year=' + e.target.value;
+         }
+      })
+
+      const renderMemberRanking = function(data) {
+
+         let wrapper = $("#member-ranking-wrapper");
+         wrapper.empty();
+
+         if(data.length == 0) {
+            wrapper.append($("<p class='text-center text-danger'>Chưa có thống kê.</p>"));
+         }
+
+         data.forEach(item => {
+
+            let itemDOM = `
+               <span class="d-flex align-items-center p-2 bg-light fw-bold text-center rounded" style="font-size: 1.4em;">
+                  <div class="" style="width: 50px; height: 50px;">
+                     <img src="${item.avatar}" 
+                        alt="avt" class="w-100 h-100 rounded-circle"
+                     >
+                  </div>
+                  <div class="flex-grow-1 text-success">
+                     ${item.name}
+                  </div>
+                  <div class="p-2 text-warning">
+                     ${item.count}
+                  </div>
+               </span>
+            `;
+
+            $(itemDOM).appendTo(wrapper);
+
+         })
+      }
+
+      $("#form-member-ranking").submit(e => {
+         e.preventDefault();
+         let month = e.target.month.value;
+         console.log(month);
+         fetchMemberRanking({ year: year, month: month, callback: renderMemberRanking });
+      });
+
+      fetchMemberRanking({ month: month, year: year, callback: data => {
+         renderMemberRanking(data);
+         $("#i_month_member_ranking").find(`option[value='${month}']`).attr('selected', true);
+      }});
+
    });
 
-   const chart = new ApexCharts(document.querySelector("#chart"), demoOptions);
-   const e_chart = new ApexCharts(document.querySelector("#chart-employee"), employeeChartOptions);
-   showChart(chart, { hideLoading: () => $("#chart-loading").hide() });
-   showChart(e_chart, { hideLoading: () => $("#chart-employee-loading").hide() });
 </script>
 {% endblock %}
 {% block footer%}{% endblock %}

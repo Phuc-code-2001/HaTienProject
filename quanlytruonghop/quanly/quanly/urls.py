@@ -25,6 +25,7 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('', include('topicyeucau.urls')),
     path('n/', include('notifications.urls')),
+    path('r/', include('reporting.urls')),
 
 ]
 

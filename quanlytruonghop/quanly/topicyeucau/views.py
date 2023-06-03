@@ -429,9 +429,25 @@ def rate_topic(request):
 # -------------------------------MANGAGE VIEW-----------------------------
 @user_passes_test(lambda u: u.is_staff or u.is_superuser or user_in_group(u, 'manageUser') or user_in_group(u, 'Employee')) 
 def manage_view(request):
-    return render(request,'client/dashboard.html')
-
-
+    
+    year = request.GET.get('year') or datetime.datetime.now().year
+    month = datetime.datetime.now().month
+    emp_id = request.GET.get('emp_id')
+    
+    hidden_fields = [
+        dict(name="year", value=year),
+        dict(name='emp_id', value=emp_id),
+        dict(name='month', value=month),
+    ]
+    
+    return render(request,'client/dashboard.html', context={
+        'hidden_fields': hidden_fields,
+        'year': year,
+        'total_topic': Topic.objects.count(),
+        'total_topic_done': MyTopic.objects.filter(status='Hoàn thành').count(),
+        'total_post_on_year': Article.objects.filter(created_at__year=year).count(),
+        'total_topic_on_year': Topic.objects.filter(start_time__year=year).count(),
+    })
 
 
 @user_passes_test(lambda u: u.is_staff or u.is_superuser or user_in_group(u, 'manageUser') or (user_in_group(u, 'Employee') and MyTopic.objects.filter(employee=u).exists()))
