@@ -52,9 +52,16 @@ def user_in_group(user, group_name):
 
 #----------------------------Quan ly tai khoan -------------------------------------
 def home_view(request):
+    
+    
     article_list = Article.objects.filter(hidden=False)  # Lọc ra các bài viết chưa bị ẩn
     knowledges = Knowledge.objects.all()
+    q = request.GET.get('q')
+    if q:
+        article_list = article_list.filter(title__contains=q)
+        
     context = {
+        'q': q,
         'article_list': article_list,
         'knowledges': knowledges,
     }
@@ -422,9 +429,25 @@ def rate_topic(request):
 # -------------------------------MANGAGE VIEW-----------------------------
 @user_passes_test(lambda u: u.is_staff or u.is_superuser or user_in_group(u, 'manageUser') or user_in_group(u, 'Employee')) 
 def manage_view(request):
-    return render(request,'client/dashboard.html')
-
-
+    
+    year = request.GET.get('year') or datetime.datetime.now().year
+    month = datetime.datetime.now().month
+    emp_id = request.GET.get('emp_id')
+    
+    hidden_fields = [
+        dict(name="year", value=year),
+        dict(name='emp_id', value=emp_id),
+        dict(name='month', value=month),
+    ]
+    
+    return render(request,'client/dashboard.html', context={
+        'hidden_fields': hidden_fields,
+        'year': year,
+        'total_topic': Topic.objects.count(),
+        'total_topic_done': MyTopic.objects.filter(status='Hoàn thành').count(),
+        'total_post_on_year': Article.objects.filter(created_at__year=year).count(),
+        'total_topic_on_year': Topic.objects.filter(start_time__year=year).count(),
+    })
 
 
 @user_passes_test(lambda u: u.is_staff or u.is_superuser or user_in_group(u, 'manageUser') or (user_in_group(u, 'Employee') and MyTopic.objects.filter(employee=u).exists()))
