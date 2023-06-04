@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'django_auth_adfs',
     'channels',
     'notifications',
-    'reporting',
+    'reporting',    
+    'email_services',
 
 ]
 
@@ -176,3 +177,10 @@ LOGIN_URL = 'login'
 
 LOGIN_REDIRECT_URL = 'update_user_profile'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'hatien2304@gmail.com'
+EMAIL_HOST_PASSWORD = 'bmoruixdbydizsew'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
