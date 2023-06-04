@@ -9,10 +9,10 @@ from django.contrib.auth.models import User, Group
 
 EMAIL_SERVER = settings.EMAIL_HOST_USER
 
-def send_notification(recipient_list_validated : list[User], notification : Notification):
+def send_notification(recipient_list_validated : list[User], subject, message):
     return send_mail(
-        subject=notification.title,
-        message=notification.content,
+        subject=subject,
+        message=message,
         from_email=EMAIL_SERVER,
         recipient_list=recipient_list_validated,
     )
@@ -20,28 +20,40 @@ def send_notification(recipient_list_validated : list[User], notification : Noti
 @receiver(post_save, sender=GroupNotification)
 def send_to_group(sender, instance, created, **kwargs):
     
-    group = instance.group_receiver
-    users = group.user_set.all()
-    recipient_list = []
-    for _receiver in users:
-        if _receiver.email:
-            recipient_list.append(_receiver.email)
-        else:
-            print(f"W: The user '{_receiver.userprofile.name}' do not have email to send notification!")
-    
-    if len(recipient_list) != 0:
-        send_notification(recipient_list, instance)
+    if created:
+        group = instance.group_receiver
+        users = group.user_set.all()
+        recipient_list = []
+        for _receiver in users:
+            if _receiver.email:
+                recipient_list.append(_receiver.email)
+            else:
+                print(f"W: The user '{_receiver.userprofile.name}' do not have email to send notification!")
+        
+        if len(recipient_list) != 0:
+            subject = instance.title
+            message = instance.content
+            send_notification(recipient_list, subject, message)
     
 
 @receiver(post_save, sender=PersonalNotification)
 def send_to_one(sender, instance, created, **kwargs):
-    _receiver = instance.receiver
-    recipient_list = []
-    if _receiver.email:
-        recipient_list.append(_receiver.email)
-    else:
-        print(f"W: The user '{_receiver.userprofile.name}' do not have email to send notification!")
     
-    if len(recipient_list) != 0:
-        send_notification(recipient_list, instance)
+    if created:
+        _receiver = instance.receiver
+        recipient_list = []
+        if _receiver.email:
+            recipient_list.append(_receiver.email)
+        else:
+            print(f"W: The user '{_receiver.userprofile.name}' do not have email to send notification!")
+        
+        if len(recipient_list) != 0:
+            
+            subject = instance.title
+            message = instance.content
+            
+            if _receiver.groups.filter(name='Employee').count():
+                message += f". Truy cập http://127.0.0.1:8000/n/view-notification/{instance.pk} để xem."
+            
+            send_notification(recipient_list, subject, message)
     

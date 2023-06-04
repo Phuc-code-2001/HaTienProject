@@ -167,7 +167,7 @@ function createNotificationItemDOM(e) {
     return `
             <span class="message-item" id="notify-${e.id}">
                 <div class="note-info-desmis">
-                    <a href="${e.link}" class="user-notify-info mx-2 text-success">
+                    <a href="/n/view-notification/${e.id}" class="user-notify-info mx-2 ${e.seen ? 'text-dark':'text-white bg-info'}">
                         <p class="note-name">${e.title}</p>
                         <p class="note-comment">${e.content}
                         </p>
