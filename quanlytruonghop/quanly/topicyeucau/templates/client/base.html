@@ -93,7 +93,7 @@
         const channel = pusher.subscribe("{{ request.user.user_channel.first.channel }}");
         
         channel.bind('-notification', function(data) {
-            alert(data.title);
+            alert(data.content);
             console.log(data);
             addNotification(data);
         });

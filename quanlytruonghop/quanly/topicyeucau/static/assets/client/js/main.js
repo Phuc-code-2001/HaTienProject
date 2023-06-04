@@ -165,7 +165,7 @@ const unreadNotificationDOM = $("#unread_notification");
 function createNotificationItemDOM(e) {
     let time = new Date(e.create_at);
     return `
-            <span class="dropdown-item message-item">
+            <span class="message-item" id="notify-${e.id}">
                 <div class="note-info-desmis">
                     <a href="${e.link}" class="user-notify-info mx-2 text-success">
                         <p class="note-name">${e.title}</p>
@@ -173,7 +173,7 @@ function createNotificationItemDOM(e) {
                         </p>
                         <small class="text-muted text-info">${time.toLocaleTimeString()} ${time.toDateString()}</small>
                     </a>
-                    <button class="btn btn-danger btn-sm" value="${e.id}">
+                    <button class="btn btn-danger btn-sm" value="${e.id}" name="btn-remove">
                         <span class="fas fa-times"></span>
                     </button>
                 </div>
@@ -181,13 +181,39 @@ function createNotificationItemDOM(e) {
             `
 }
 
+function callRemoveNotification(id, callback) {
+
+    let url = "http://127.0.0.1:8000/n/remove-notification/" + id;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        success: callback
+    });
+
+}
+
+function bindRemoveListenner() {
+    $("button[name='btn-remove']").click(function(e) {
+        let nId = $(this).val();
+        console.log("btn remove clicked: " + nId);
+        if(confirm('Xác nhận xóa bỏ thông báo?')) {
+            callRemoveNotification(nId, (result) => {
+                $(`#notify-${nId}`).remove();
+                notification.length = 0;
+                fetchNotifications();
+            });
+        }
+    });
+}
+
 function addNotification(data) {
-    alert("Pusher comming!");
+    
     if(notification.length === 0) {
         listNotificationDOM.empty();
     }
     notification.push(data);
     $(createNotificationItemDOM(data)).prependTo(listNotificationDOM);
+    bindRemoveListenner();
 }
 
 const fetchNotifications = function() {
@@ -197,6 +223,8 @@ const fetchNotifications = function() {
             notification.forEach((e, i) => {
                 $(createNotificationItemDOM(e)).prependTo(listNotificationDOM);
             });
+
+            bindRemoveListenner();
         }
         else {
             $('<p class="text-danger text-center">Chưa có thông báo</p>').appendTo(listNotificationDOM);

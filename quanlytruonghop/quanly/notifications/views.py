@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse, HttpResponse
 
-from .models import PersonalNotification, GroupNotification
+from .models import PersonalNotification, GroupNotification, Notification
 
 # Create your views here.
 def get_list_notifications(request):
@@ -15,3 +15,11 @@ def get_list_notifications(request):
         return JsonResponse(data=converted_data, safe=False)
     
     return HttpResponse(status=403)
+
+def remove_notification(request, id):
+    
+    obj = get_object_or_404(Notification, pk=id)
+    if obj:
+        obj.delete()
+        
+    return HttpResponse(status=200)
