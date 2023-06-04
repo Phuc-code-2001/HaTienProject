@@ -114,6 +114,9 @@ class ArticleForm(forms.ModelForm):
 class TopicForm(forms.ModelForm):
     content = forms.CharField(widget=CKEditorWidget(config_name='default'))
     category = forms.ModelChoiceField(queryset=Category.objects.all(), to_field_name='name')
+    
+    # Custom style
+    category.widget.attrs.update({ "class": "form-control mt-1" })
 
     class Meta:
         model = Topic
